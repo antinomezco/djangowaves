@@ -1,117 +1,68 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+  <div>
+    <NotificationBar />
+    <TheHeader />
+    <nuxt />
+    <TheFooter />
+  </div>
 </template>
 
 <script>
+import NotificationBar from '@/components/visitors/general/NotificationBar'
+import TheHeader from '@/components/visitors/general/TheHeader'
+import TheFooter from '@/components/visitors/general/TheFooter'
 export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+  components: {
+    NotificationBar,
+    TheFooter,
+    TheHeader
   }
 }
 </script>
+
+<style>
+  body {
+    font-family: Montserrat;
+  }
+  body, html {
+    margin: 0px; padding: 0px;
+  }
+  h2, h3, h1, h4 {
+    margin-top: 5px; margin-bottom: 5px;
+  }
+  a, a:focus, a:visited, a:hover {
+    color: #000; text-decoration: none;
+  }
+  .issue, .yellow {
+    background: #F1C21A;
+  }
+  .down, .red {
+    background: #CD5C5C;
+  }
+  .up, .green {
+    background: #2EE779;
+  }
+  .cards {
+    max-width: 700px;
+    margin: -30px auto 20px;
+  }
+  .card {
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px 20px;
+    box-shadow: 0 0 3px 1px rgba(163,163,163,0.30);
+    -webkit-box-shadow: 0 0 3px 1px rgba(163,163,163,0.30);
+    font-family: Montserrat;
+    font-weight: 300;
+  }
+  .incidents > .incident_item {
+    margin-bottom: 30px;
+    margin-top: 10px;
+  }
+  .incidents > .incident_item:last-child {
+    margin-bottom: 10px;
+  }
+  .incidents {
+    margin-bottom: 30px;
+  }
+</style>

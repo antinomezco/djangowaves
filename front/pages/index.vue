@@ -1,92 +1,67 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
+  <div>
+    <div class="cards">
+      <div
+        v-for="site in sites"
+        :key="site.id"
+        class="card status"
+      >
+        <SiteStatus :site="site" />
       </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+      <div
+        v-if="openIncidents.length >0"
+        class="card incidents"
+      >
+        <div
+          v-for="i in openIncidents"
+          :key="i.id"
+          class="incident_item"
+        >
+          <nuxt-link :to="{ name: 'incident-id', params: { id: i.id }}">
+            <IncidentListItem :incident="i" />
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import IncidentListItem from '@/components/visitors/IncidentListItem'
+import SiteStatus from '@/components/visitors/SiteStatus'
 
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
+  components: { IncidentListItem, SiteStatus },
+  data: () => ({
+    openIncidents: [{ id: 1, title: 'Connectivity Issues', update_set: [{ description: 'We have noticed some connectivity issues', date: '2018-10-02 13:00:12', status: 'Investigating' }] }],
+    sites: [{ title: 'API', status: 'up', uptime_set: [{ date: '2018-07-12T13:42:58.085870', id: 1, response_time: 352, status: 'up' }, { date: '2018-07-12T13:43:58.085870', id: 2, response_time: 231, status: 'up' }, { date: '2018-07-12T13:44:58.085870', id: 3, response_time: 123, status: 'down' }, { date: '2018-07-12T13:45:58.085870', id: 4, response_time: 344, status: 'issue' }] }]
+  })
 }
 </script>
+
+<style scoped>
+.card.status { margin-bottom: 10px; }
+.cards {
+  max-width: 700px;
+  margin: -30px auto 20px;
+}
+.card {
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px 20px;
+  box-shadow: 0 0 3px 1px rgba(163,163,163,0.30);
+  -webkit-box-shadow: 0 0 3px 1px rgba(163,163,163,0.30);
+  font-family: Montserrat;
+  font-weight: 300;
+}
+.incidents > .incident_item {
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.incidents > .incident_item:last-child {
+  margin-bottom: 10px;
+}
+.incidents {
+  margin-bottom: 30px;
+}
+</style>
