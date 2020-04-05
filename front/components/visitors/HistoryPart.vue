@@ -42,8 +42,8 @@ export default {
     closedIncidents: [{ id: 1, title: 'Slow response times', end: '2020-3-31 13:00:12', start: '2020-4-5 13:00:12', update_set: [{ description: 'We have noticed some connectivity issues', date: '2018-8-1 13:00:12', status: 'Investigating' }] }]
   }),
   mounted: () => {
-    var start = new Date()
-    var end = new Date().setDate(start.getDate() - 6)
+    let start = new Date()
+    const end = new Date().setDate(start.getDate() - 6)
     // eslint-disable-next-line
     for (this.dates = []; end <= start; start.setDate(start.getDate() - 1)){
       this.dates.push(new Date(start))
