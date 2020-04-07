@@ -38,15 +38,13 @@ export default {
     }
   },
   data: () => ({
-    dates: [],
-    closedIncidents: [{ id: 1, title: 'Slow response times', end: '2020-3-31 13:00:12', start: '2020-4-5 13:00:12', update_set: [{ description: 'We have noticed some connectivity issues', date: '2018-8-1 13:00:12', status: 'Investigating' }] }]
+    closedIncidents: [{ id: 1, title: 'Slow response times', end: '2019-8-2 13:00:12', start: '2019-8-1 13:00:12', update_set: [{ description: 'We have noticed some connectivity issues', date: '2018-8-1 13:00:12', status: 'Investigating' }] }]
   }),
   mounted: () => {
-    let start = new Date()
-    const end = new Date().setDate(start.getDate() - 6)
-    // eslint-disable-next-line
-    for (this.dates = []; end <= start; start.setDate(start.getDate() - 1)){
+    const start = new Date()
+    for (let i = 0; i < 6; i++) {
       this.dates.push(new Date(start))
+      start.setDate(start.getDate() - 1)
     }
   },
   methods: {
@@ -58,43 +56,43 @@ export default {
 </script>
 
 <style scoped>
-  .calendar h2 {
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-  .green-color { color: #2EE779; }
-  .orange-color { color: #f3b34c; }
-  .subtext {
-    color: lightgrey;
-    display: inline-block;
-    position: relative;
-    left: 10px;
-  }
-  a, a:hover, a:visited, a:focus {
-    color: #7d7d7d;
-  }
-  .issue-resolved {
-    display: block;
-    font-size: 12px;
-    color: #a2a2a2;
-  }
-  .fa-exclamation-circle {
-    vertical-align: top;
-    top: 2px;
-    position: relative;
-  }
-  .calendar-item {
-    margin-bottom: 10px;
-  }
-  .calendar-item p{
-    margin-bottom: 5px;
-  }
-  .small-square-indicator {
-    width: 100%;
-    height: 5px;
-    display: inline-block;
-  }
-  .issue-name {
-    color: #7d7d7d;
-  }
+.calendar h2 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.green-color { color: #2EE779; }
+.orange-color { color: #f3b34c; }
+.subtext {
+  color: lightgrey;
+  display: inline-block;
+  position: relative;
+  left: 10px;
+}
+a, a:hover, a:visited, a:focus {
+  color: #7d7d7d;
+}
+.issue-resolved {
+  display: block;
+  font-size: 12px;
+  color: #a2a2a2;
+}
+.fa-exclamation-circle {
+  vertical-align: top;
+  top: 2px;
+  position: relative;
+}
+.calendar-item {
+  margin-bottom: 10px;
+}
+.calendar-item p{
+  margin-bottom: 5px;
+}
+.small-square-indicator {
+  width: 100%;
+  height: 5px;
+  display: inline-block;
+}
+.issue-name {
+  color: #7d7d7d;
+}
 </style>
